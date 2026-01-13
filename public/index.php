@@ -13,8 +13,16 @@ foreach ($env as $key => $value) {
 }
 
 require_once __DIR__ . '/../app/config/database.php';
+require_once __DIR__ . '/../app/models/User.php';
+
 
 $db = new Database();
 $conn = $db->connect();
 
-echo 'Conexion OK';
+$userModel = new User($conn);
+$users = $userModel->getAll();
+
+echo "<pre>";
+print_r($users);
+
+
