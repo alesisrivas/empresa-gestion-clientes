@@ -34,4 +34,15 @@ public function create($name, $email, $password) {
         ':password' => $hashedPassword
         ]);
     }
+
+    public function findByEmail($email) {
+        $sql = "SELECT * FROM {$this->table}
+        WHERE email = :email AND active = 1
+        LIMIT 1";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':email' => $email]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
